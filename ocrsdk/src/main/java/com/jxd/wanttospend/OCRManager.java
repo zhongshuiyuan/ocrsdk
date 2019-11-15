@@ -69,7 +69,7 @@ public class OCRManager {
     }
 
     //正面
-    public void startOcrType(final Activity activity, OCRCallback ocrCallback) {
+    public void startOcrType(final Activity activity, final OCRCallback ocrCallback) {
         this.ocrCallback=ocrCallback;
         this.activity=activity;
         if (TextUtils.isEmpty(OCRStatus.institutionCode)||TextUtils.isEmpty(OCRStatus.password))
@@ -78,6 +78,7 @@ public class OCRManager {
         requestBean.setInstitutionCode(OCRStatus.institutionCode);
         requestBean.setPassword(OCRStatus.password);
         requestBean.setType(OCRStatus.type);
+        requestBean.setClassName(OCRStatus.className);
         OkHttpClient client=new OkHttpClient();
         MediaType MEDIA_TYPE_JSON= MediaType.parse("application/json; charset=utf-8");
         RequestBody requestBody=RequestBody.create(MEDIA_TYPE_JSON,new Gson().toJson(requestBean));
@@ -98,6 +99,7 @@ public class OCRManager {
                 Gson gson = new Gson();
                 Log.e("OCR",string);
                 final ReturnBean body = gson.fromJson(string,ReturnBean.class);
+                ocrCallback.ocrMessage(body);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
