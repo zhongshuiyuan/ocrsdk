@@ -1,23 +1,19 @@
 package com.jxd.wanttospend;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.idcard.TFieldID;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.idcard.TParam;
 import com.idcard.TRECAPI;
-import com.idcard.TRECAPIImpl;
 import com.idcard.TStatus;
 import com.idcard.TengineID;
-import com.jxd.wanttospend.utils.ToastUtils;
 import com.turui.android.activity.WCameraActivity;
 import com.turui.engine.EngineConfig;
 import com.turui.engine.InfoCollection;
@@ -30,6 +26,7 @@ public class IDCardActivity extends AppCompatActivity {
     public static final String IDCard="IDCard";
     private int i;
     public  Bitmap copyTakeBitmap;
+    public Bitmap copyTakeBitmap2;
     private TRECAPI engine;
     private OCRCallback ocrCallback;
     private OCRStatus ocrStatus;
@@ -85,9 +82,9 @@ public class IDCardActivity extends AppCompatActivity {
         config.setCheckCopyOfIdcard(false);//正常下不用，翻拍检测，在结果中获取InfoCollection类中的 .getImageProperty()
         config.setOpenSmallPicture(true);//开启小图（身份证头像与银行卡卡号其它证件没有）
         config.setOpenImageRotateCheck(true);//返回身份证旋转方向信息
-        if (i==OCRStatus.OCR_Positive){
+        if (i== OCRStatus.OCR_Positive){
             config.setTipBitmapType(EngineConfig.TipBitmapType.IDCARD_PORTRAIT);//默认提示图片(目前只有身份证，其它证件可以自定义)：IDCARD_PORTRAIT:头像面，IDCARD_EMBLEM:国徽面，NONE:不显示
-        }else if (i==OCRStatus.OCR_EMBLEM){
+        }else if (i== OCRStatus.OCR_EMBLEM){
             config.setTipBitmapType(EngineConfig.TipBitmapType.IDCARD_EMBLEM);//默认提示图片(目前只有身份证，其它证件可以自定义)：IDCARD_PORTRAIT:头像面，IDCARD_EMBLEM:国徽面，NONE:不显示
         }else{
             config.setTipBitmapType(EngineConfig.TipBitmapType.NONE);//默认提示图片(目前只有身份证，其它证件可以自定义)：IDCARD_PORTRAIT:头像面，IDCARD_EMBLEM:国徽面，NONE:不显示

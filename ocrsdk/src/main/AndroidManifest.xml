@@ -13,8 +13,8 @@ package="com.jxd.wanttospend" >
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
 <application
-    android:allowBackup="true"
-    android:supportsRtl="true">
+    android:usesCleartextTraffic="true"
+    android:networkSecurityConfig="@xml/network_security">
 
     <!-- 暂时不支持自动切换方向，但可以支持横屏或竖屏 -->
     <activity
