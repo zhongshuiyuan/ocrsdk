@@ -4,19 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.idcard.TRECAPI;
 import com.idcard.TRECAPIImpl;
-import com.jxd.wanttospend.utils.HttpUtils;
 import com.jxd.wanttospend.utils.RequestBean;
 import com.jxd.wanttospend.utils.ReturnBean;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
