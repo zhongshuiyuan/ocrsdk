@@ -5,10 +5,24 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.idcard.TRECAPI;
 import com.idcard.TRECAPIImpl;
+import com.jxd.wanttospend.utils.RequestBean;
 import com.jxd.wanttospend.utils.ReturnBean;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * 全局app
@@ -58,39 +72,7 @@ public class OCRManager {
     public void startOcrType(final Activity activity, OCRCallback ocrCallback) {
         this.ocrCallback=ocrCallback;
         this.activity=activity;
-        /*if (ocrStatus.getIdType() == OCRStatus.OCR_EMBLEM) {
-            Intent intent=new Intent(activity,IDCardActivity.class);
-            intent.putExtra(IDCardActivity.IDCard, OCRStatus.OCR_EMBLEM);
-            intent.putExtra("side",0 );
-            activity.startActivity(intent);
-        } else if (ocrStatus.getIdType() == OCRStatus.OCR_Positive) {
-            Intent intent=new Intent(activity,IDCardActivity.class);
-            intent.putExtra(IDCardActivity.IDCard, OCRStatus.OCR_Positive);
-            intent.putExtra("side",1 );
-            activity.startActivity(intent);
-        }else{
-            Intent intent=new Intent(activity,IDCardActivity.class);
-            intent.putExtra(IDCardActivity.IDCard, OCRStatus.OCR_NONE);
-            intent.putExtra("side",1 );
-            activity.startActivity(intent);
-        }*/
-        if (ocrStatus.getIdType() == OCRStatus.OCR_EMBLEM) {
-            Intent intent=new Intent(activity, IDCardActivity.class);
-            intent.putExtra(IDCardActivity.IDCard, OCRStatus.OCR_EMBLEM);
-            intent.putExtra("side",0 );
-            activity.startActivity(intent);
-        } else if (ocrStatus.getIdType() == OCRStatus.OCR_Positive) {
-            Intent intent=new Intent(activity, IDCardActivity.class);
-            intent.putExtra(IDCardActivity.IDCard, OCRStatus.OCR_Positive);
-            intent.putExtra("side",1 );
-            activity.startActivity(intent);
-        }else{
-            Intent intent=new Intent(activity, IDCardActivity.class);
-            intent.putExtra(IDCardActivity.IDCard, OCRStatus.OCR_NONE);
-            intent.putExtra("side",1 );
-            activity.startActivity(intent);
-        }
-       /* if (TextUtils.isEmpty(OCRStatus.institutionCode)||TextUtils.isEmpty(OCRStatus.password))
+        if (TextUtils.isEmpty(OCRStatus.institutionCode)||TextUtils.isEmpty(OCRStatus.password))
             return;
         RequestBean requestBean=new RequestBean();
         requestBean.setInstitutionCode(OCRStatus.institutionCode);
@@ -100,7 +82,7 @@ public class OCRManager {
         MediaType MEDIA_TYPE_JSON= MediaType.parse("application/json; charset=utf-8");
         RequestBody requestBody=RequestBody.create(MEDIA_TYPE_JSON,new Gson().toJson(requestBean));
         Request request = new Request.Builder()
-                .url("http:// 192.168.1.116:19610/sdkValid/checkAuthority")
+                .url("http://192.168.1.116:19610/sdkValid/checkAuthority")
                 .post(requestBody)
                 .build();
 
@@ -114,6 +96,7 @@ public class OCRManager {
             public void onResponse(Call call, Response response) throws IOException {
                 final String string = response.body().string();
                 Gson gson = new Gson();
+                Log.e("OCR",string);
                 final ReturnBean body = gson.fromJson(string,ReturnBean.class);
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -139,7 +122,7 @@ public class OCRManager {
                     }
                 },0);
             }
-        });*/
+        });
     }
 
     public OCRCallback getOCRCallback(){

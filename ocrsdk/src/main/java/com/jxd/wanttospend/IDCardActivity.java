@@ -15,6 +15,7 @@ import com.idcard.TRECAPI;
 import com.idcard.TStatus;
 import com.idcard.TengineID;
 import com.turui.android.activity.WCameraActivity;
+import com.turui.android.cameraview.R;
 import com.turui.engine.EngineConfig;
 import com.turui.engine.InfoCollection;
 
